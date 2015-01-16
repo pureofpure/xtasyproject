@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+/*Stelmach Rostisla(xtasy) */
+
+#define MAX 10
+
+struct lista
+{
+    char name[80];
+    char lastname[80];
+    unsigned grade;
+
+}lst[MAX];
+
+
+int main()
+{
+    int i;
+    int temp[80];
+    char inp[80];
+    FILE *fp;
+    char *str;
+
+
+
+    for(i=0;i<MAX;i++)
+    {
+        printf("%d Registration\n", i+1);
+        puts(" ");
+        printf("Name: ");
+        gets(lst[i].name);
+        printf("LastName: ");
+        gets(lst[i].lastname);
+        printf("Grade: ");
+        gets(temp);
+        lst[i].grade = (unsigned) atoi(temp);
+    }
+
+    puts("Enter the name of the file to create: ");
+    scanf("%s", inp);
+
+    if((fp = fopen("gradelist", "wb"))==NULL)
+    {
+        printf("Cannot open file");
+        exit(1);
+    }
+
+    if(fwrite(lst, sizeof lst, 1, fp) != 1)
+    {
+        printf("Cannot write file");
+        exit(1);
+    }
+
+    fclose(fp);
+
+
+    return 0;
+}
+
